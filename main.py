@@ -37,13 +37,37 @@ class Room:
         return names
 
 
-obj_knife = GameObject("Knife", "It looks sharp", "It feels light", "It smells like metal")
-obj_cardbox = GameObject("Cardbox", "It looks like a generic cardbox", "It feels soft", "It smells like shit")
+class GameMode:
 
-game_objects = [obj_knife, obj_cardbox]
+    def __init__(self):
+        self.attempts = 0
+        objects = self.create_objects()
+        self.room = Room(731, objects)
 
-room = Room(384, game_objects)
-
-print(room.get_game_object_names())
-print(room.check_code(666))
-print(room.check_code(384))
+    def create_objects(self):
+        return [GameObject(
+            "Sweater",
+            "It's a blue sweater that had the number 12 switched on it.",
+            "Someone has unstitched the second number, leaving only the 1.",
+            "The sweater smells of laundry detergent."),
+            GameObject(
+                "Chair",
+                "It's a wooden chair with only 3 legs.",
+                "Someone had deliberately snapped off one of the legs.",
+                "It smells like old wood."),
+            GameObject(
+                "Journal",
+                "The final entry states that time should be hours then minutes then seconds (H-M-S).",
+                "The cover is worn and several pages are missing.",
+                "It smells like musty leather."),
+            GameObject(
+                "Bowl of soup",
+                "It appears to be tomato soup.",
+                "It has cooled down to room temperature.",
+                "You detect 7 different herbs and spices."),
+            GameObject(
+                "Clock",
+                "The hour hand is pointing towards the soup, the minute hand towards the chair, "
+                "and the second hand towards the sweater.",
+                "The battery compartment is open and empty.",
+                "It smells of plastic."), ]
