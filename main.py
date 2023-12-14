@@ -76,8 +76,9 @@ class GameMode:
     # Player will see a prompt during each turn
     def take_turn(self):
         prompt = self.get_room_prompt()
-        selection = input(prompt)
+        selection = int(input(prompt))
         print(selection)
+        self.select_object(selection-1)
 
     # Generates a prompt including the names of he objects inside the room
     def get_room_prompt(self):
@@ -87,6 +88,25 @@ class GameMode:
             prompt += f"{index}. {name}\n"
             index += 1
         return prompt
+
+    # Selects the object player chooses and prompts for interaction
+    def select_object(self, index):
+        selected_object = self.room.game_objects[index]
+        prompt = self.get_object_interaction_string(selected_object.name)
+        interaction = input(prompt)
+        print(interaction)
+        return
+
+    # Returns object interaction prompt
+    def get_object_interaction_string(self, name):
+        return (f"How do you want to interact with the {name}?\n"
+                f"1. Look\n"
+                f"2. Touch\n"
+                f"3. Smell\n")
+
+    # TODO:
+    def interact_with_object(self, object, interaction):
+        return
 
 
 # Debug/Test: Create a GameMode instance and call the take_turn() function that returns
