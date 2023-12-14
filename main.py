@@ -38,12 +38,13 @@ class Room:
 
 
 class GameMode:
-
+    # Member variables made up of amount of attempts solving the code and instantiating the room
     def __init__(self):
         self.attempts = 0
         objects = self.create_objects()
         self.room = Room(731, objects)
 
+    # Returns a list with all the objects in the room
     def create_objects(self):
         return [GameObject(
             "Sweater",
@@ -71,3 +72,24 @@ class GameMode:
                 "and the second hand towards the sweater.",
                 "The battery compartment is open and empty.",
                 "It smells of plastic."), ]
+
+    # Player will see a prompt during each turn
+    def take_turn(self):
+        prompt = self.get_room_prompt()
+        selection = input(prompt)
+        print(selection)
+
+    # Generates a prompt including the names of he objects inside the room
+    def get_room_prompt(self):
+        prompt = "Enter the 3-digit lock code or choose an item to interact with:\n"
+        index = 1
+        for name in self.room.get_game_object_names():
+            prompt += f"{index}. {name}\n"
+            index += 1
+        return prompt
+
+
+# Debug/Test: Create a GameMode instance and call the take_turn() function that returns
+# a console prompt with a list of objects
+game = GameMode()
+game.take_turn()
