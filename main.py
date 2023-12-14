@@ -81,6 +81,16 @@ class GameMode:
         if selection >= 1 and selection <= 5:
             self.select_object(selection-1)
             self.take_turn()
+        else:
+            is_code_correct = self.guess_code(selection)
+            if is_code_correct:
+                print("Congratulations, you win!\n")
+            else:
+                if self.attempts == 3:
+                    print("Game over, you suck!\n")
+                else:
+                    print(f"Incorrect, you have used {self.attempts}/3 attempts.\n")
+                    self.take_turn()
 
     # Generates a prompt including the names of he objects inside the room
     def get_room_prompt(self):
@@ -115,6 +125,13 @@ class GameMode:
         else:
             return object.sniff()
         return ""
+
+    def guess_code(self, code):
+        if self.room.check_code(code):
+            return True
+        else:
+            self.attempts += 1
+            return False
 
 
 # Debug/Test: Create a GameMode instance and call the take_turn() function that returns
