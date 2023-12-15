@@ -46,11 +46,12 @@ class GameMode:
 
     # Returns a list with all the objects in the room
     def create_objects(self):
-        return [GameObject(
-            "Sweater",
-            "It's a blue sweater that had the number 12 switched on it.",
-            "Someone has unstitched the second number, leaving only the 1.",
-            "The sweater smells of laundry detergent."),
+        return [
+            GameObject(
+                "Sweater",
+                "It's a blue sweater that had the number 12 switched on it.",
+                "Someone has unstitched the second number, leaving only the 1.",
+                "The sweater smells of laundry detergent."),
             GameObject(
                 "Chair",
                 "It's a wooden chair with only 3 legs.",
@@ -79,7 +80,7 @@ class GameMode:
         selection = int(input(prompt))
         # Only takes the selection prompted if it's a valid input
         if selection >= 1 and selection <= 5:
-            self.select_object(selection-1)
+            self.select_object(selection - 1)
             self.take_turn()
         else:
             is_code_correct = self.guess_code(selection)
@@ -134,7 +135,40 @@ class GameMode:
             return False
 
 
-# Debug/Test: Create a GameMode instance and call the take_turn() function that returns
-# a console prompt with a list of objects
+# Run Game:
 game = GameMode()
 game.take_turn()
+
+
+# Testing suite:
+class RoomTests:
+
+    def __init__(self):
+        self.room_1 = Room(111, [
+            GameObject(
+                "Sweater",
+                "It's a blue sweater that had the number 12 switched on it.",
+                "Someone has unstitched the second number, leaving only the 1.",
+                "The sweater smells of laundry detergent."),
+            GameObject(
+                "Chair",
+                "It's a wooden chair with only 3 legs.",
+                "Someone had deliberately snapped off one of the legs.",
+                "It smells like old wood.")
+        ])
+        self.room_2 = Room(222, [])
+
+    # Function to test the escape code of room 1
+    def test_check_code(self):
+        print(self.room_1.check_code(111) == True)
+        print(self.room_1.check_code(222) == False)
+
+    # Function to test the list of names
+    def test_get_game_object_names(self):
+        print(self.room_1.get_game_object_names() == ["Sweater", "Chair"])
+        print(self.room_2.get_game_object_names() == [])
+
+
+# tests = RoomTests()
+# tests.test_check_code()
+# tests.test_get_game_object_names()
